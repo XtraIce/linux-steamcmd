@@ -1,27 +1,29 @@
 #!/bin/bash
-
-SAVE_LOCATION=/home/steam/PalWorldBackups
-APP_INFO=/home/steam/Steam/appinfo
-STEAM_PATH=/home/steam/Steam/steamapps/common
-TARGET_WORLDSAVE=${STEAM_PATH}/PalServer/Pal/Saved/SaveGames
-TARGET_WORLD_SETTINGS=${STEAM_PATH}/PalServer/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini
+DATA_DIR=$HOME/serverdata
+SAVE_LOCATION=$HOME/PalWorldBackups
+APP_INFO=/home/steam/steam/appinfo
+SERVER_DIR=${DATA_DIR}/palworld
+TARGET_WORLDSAVE=${SERVER_DIR}/PalServer/Pal/Saved/SaveGames
+TARGET_WORLD_SETTINGS=${SERVER_DIR}/PalServer/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini
 TARGET_APP=PalServer_Linux
 STEAM_APP=2394010
-QUERY_UPDATE="/home/steam/QueryUpdateAvailable.sh $STEAM_APP $APP_INFO"
+QUERY_UPDATE=${DATA_DIR}/linux-steamcmd/QueryUpdateAvailable.sh
+ARRCON="/home/steam/repos/ARRCON/ARRCON"
 
 
 #Check if Server is running
 if $(pgrep PalServer-Linux >/dev/null) ; then
 	#Broadcast that the server will be going down soon.
-	echo "Broadcast Server_will_be_shutdown_in_30_mins" | ARRCON -S palworld && echo "Broadcast for_scheduled_maintanence_-Red" | ARRCON -S palworld
+	echo "Broadcast Server_will_be_shutdown_in_30_mins" | $ARRCON -S palworld && echo "Broadcast for_scheduled_maintanence_-Red" | ARRCON -S palworld
 	if [ $? -eq 0 ]; then
 		sleep 20m
-		echo "Broadcast Server_will_be_shutdown_in_10_mins" | ARRCON -S palworld && echo "Broadcast for_scheduled_maintanence" | ARRCON -S palworld
+		echo "Broadcast Server_will_be_shutdown_in_10_mins" |$ARRCON -S palworld && echo "Broadcast for_scheduled_maintanence" | ARRCON -S palworld
 		sleep 9m 30s
-		echo "Broadcast SERVER_IS_SHUTTING_DOWN" | ARRCON -S palworld
-		echo "Broadcast Est_restart_time_<_2MIN" | ARRCON -S palworld
+		echo "Broadcast SERVER_IS_SHUTTING_DOWN" | $ARRCON -S palworld
+		echo "Broadcast Est_restart_time_<_2MIN" | $ARRCON -S palworld
+		echo "Broadcast DRINK_SOME_WATER" | $ARRCON -S palworld
 		sleep 10
-		echo "Save" | ARRCON -S palworld
+		echo "Save" | $ARRCON -S palworld
 	else
 		echo "$RCON Failed. Shutting down now."
 	fi
@@ -38,7 +40,7 @@ cp -r "${TARGET_WORLDSAVE}" "${save_dir}"/World
 cp "${TARGET_WORLD_SETTINGS}" "${save_dir}"/Config
 #Update Server
 echo "Checking for server updates..."
-ret=$(/home/steam/QueryUpdateAvailable.sh "$STEAM_APP" "$APP_INFO")
+ret=$("$QUERY_UPDATE" "$STEAM_APP" "$APP_INFO")
 echo "ret = $ret"
 if [[ $ret == 1 ]]; then
 	echo "Game Updated. Restoring Backed Up Save"
@@ -48,7 +50,3 @@ else
 	echo "Game version is latest"
 fi
 echo "Updates Done! Server may now restart."
-#Start Server
-#sudo systemctl enable palworld
-#echo "Server up, exiting."
-

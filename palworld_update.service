@@ -6,9 +6,9 @@ After=network.target
 [Service]
 #User=steam
 Type=oneshot
-ExecStart=/home/steam/SaveAndUpdate.sh
+ExecStart=$HOME/$DATA_DIR/linux-steamcmd/SaveAndUpdate.sh
 
-Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/steam/:/usr/games/
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/steam;
 
 StandardOutput=syslog
 StandardError=syslog

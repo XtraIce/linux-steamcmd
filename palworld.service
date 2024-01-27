@@ -7,11 +7,11 @@ User=steam
 Type=simple
 Restart=always
 RestartSec=120s
-MemoryMax=14G
+MemoryMax=22G
 CPUWeight=9000
 CPUQuota=95%
 IOWeight=6000
-ExecStart=/home/steam/Steam/steamapps/common/PalServer/PalServer.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
+ExecStart=$HOME$SERVER_DIR/PalServer.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
 
 StandardOutput=append:/var/log/palworld.log
 StandardError=append:/var/log/palworld.log
