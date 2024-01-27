@@ -1,0 +1,20 @@
+[Unit]
+Description=palworld service to keep server running
+After=palworld_update.service
+
+[Service]
+User=steam
+Type=simple
+Restart=always
+RestartSec=120s
+MemoryMax=14G
+CPUWeight=9000
+CPUQuota=95%
+IOWeight=6000
+ExecStart=/home/steam/Steam/steamapps/common/PalServer/PalServer.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
+
+StandardOutput=append:/var/log/palworld.log
+StandardError=append:/var/log/palworld.log
+
+[Install]
+WantedBy=multi-user.target

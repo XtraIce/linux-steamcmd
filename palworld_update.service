@@ -1,0 +1,18 @@
+[Unit]
+Description= Daily Service to Backup PalWorld Server and Update it
+Before=palworld.service
+After=network.target
+
+[Service]
+#User=steam
+Type=oneshot
+ExecStart=/home/steam/SaveAndUpdate.sh
+
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/steam/:/usr/games/
+
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=palworld_update
+
+[Install]
+WantedBy=multi-user.target
