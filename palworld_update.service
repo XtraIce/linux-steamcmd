@@ -10,9 +10,8 @@ ExecStart=$EXECPATH/SaveAndUpdate.sh
 
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/steam;
 
-StandardOutput=syslog
-StandardError=syslog
-SyslogIdentifier=palworld_update
+StandardOutput=append:/var/log/palworld.log
+StandardError=append:/var/log/palworld.log
 
 [Install]
 WantedBy=multi-user.target
