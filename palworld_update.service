@@ -2,11 +2,11 @@
 Description= Daily Service to Backup PalWorld Server and Update it
 Before=palworld.service
 After=network.target
-
+# EXECPATH variable should be replaced by absolute path
 [Service]
 #User=steam
 Type=oneshot
-ExecStart=$HOME/$DATA_DIR/linux-steamcmd/SaveAndUpdate.sh
+ExecStart=$EXECPATH/linux-steamcmd/SaveAndUpdate.sh
 
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/steam;
 

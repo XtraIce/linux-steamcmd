@@ -6,7 +6,7 @@
 
 #@ECHO OFF
 CURLCMD=/usr/bin/curl
-STEAMCMD=$HOME/steamcmd/steamcmd.sh
+STEAMCMD=${DATA_DIR}/steamcmd/steamcmd.sh
 RETVALUE=-1
 exit=0
 
@@ -35,7 +35,7 @@ fi
 
 if [[ !$exit ]]; then
 	if command -v ${STEAMCMD} &> /dev/null; then
-		APPINFO_DIR=/home/steam/Steam/appinfo
+		APPINFO_DIR=/home/steam/steam/appinfo
 		APPINFO_FILE="${APPINFO_DIR}/${APPID}"
 		echo "APPINFO_FILE : ${APPINFO_FILE} "
 		APPINFO_FILE_NEW="${APPINFO_FILE}-new"

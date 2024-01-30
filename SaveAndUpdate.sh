@@ -1,14 +1,14 @@
 #!/bin/bash
-DATA_DIR=$HOME/serverdata
+#DATA_DIR=$HOME/serverdata
 SAVE_LOCATION=$HOME/PalWorldBackups
-APP_INFO=/home/steam/steam/appinfo
+APP_INFO=$HOME/steam/appinfo
 SERVER_DIR=${DATA_DIR}/palworld
-TARGET_WORLDSAVE=${SERVER_DIR}/PalServer/Pal/Saved/SaveGames
-TARGET_WORLD_SETTINGS=${SERVER_DIR}/PalServer/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini
+TARGET_WORLDSAVE=${SERVER_DIR}/Pal/Saved/SaveGames
+TARGET_WORLD_SETTINGS=${SERVER_DIR}/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini
 TARGET_APP=PalServer_Linux
 STEAM_APP=2394010
-QUERY_UPDATE=${DATA_DIR}/linux-steamcmd/QueryUpdateAvailable.sh
-ARRCON="/home/steam/repos/ARRCON/ARRCON"
+QUERY_UPDATE=${DATA_DIR}/repos/linux-steamcmd/QueryUpdateAvailable.sh
+ARRCON="/usr/bin/ARRCON"
 
 
 #Check if Server is running
@@ -40,7 +40,7 @@ cp -r "${TARGET_WORLDSAVE}" "${save_dir}"/World
 cp "${TARGET_WORLD_SETTINGS}" "${save_dir}"/Config
 #Update Server
 echo "Checking for server updates..."
-ret=$("$QUERY_UPDATE" "$STEAM_APP" "$APP_INFO")
+ret=$("$QUERY_UPDATE" "$STEAM_APP" "$SERVER_DIR")
 echo "ret = $ret"
 if [[ $ret == 1 ]]; then
 	echo "Game Updated. Restoring Backed Up Save"
