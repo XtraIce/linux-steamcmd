@@ -1,0 +1,18 @@
+[Unit]
+Description=Backup, Update, and Restart SteamCmd Game Server
+Wants=steamcmd_server.service
+After=steamcmd_server.service network.target
+# This service will stop steamcmd_server.service, run update, then restart steamcmd_server.service
+[Service]
+Type=oneshot
+RemainAfterExit=true
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/steam
+StandardOutput=append:/var/log/steamcmd_server.log
+StandardError=append:/var/log/steamcmd_server.log
+ExecStart=/usr/bin/systemctl stop steamcmd_server.service
+ExecStart=/home/steam/serverdata/repos/linux-steamcmd/SaveAndUpdate.sh
+ExecStartPost=/usr/bin/systemctl start steamcmd_server.service
+ExecStartPost=/bin/bash -c 'echo "steamcmd_server_update.service completed at $(date)" >> /var/log/steamcmd_server.log'
+
+[Install]
+WantedBy=multi-user.target
