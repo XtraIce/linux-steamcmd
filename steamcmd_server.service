@@ -1,6 +1,6 @@
 [Unit]
 Description=palworld service to keep server running
-After=palworld_update.service
+After=steamcmd_server_update.service
 
 [Service]
 User=steam
@@ -11,10 +11,11 @@ MemoryMax=22G
 CPUWeight=9000
 CPUQuota=95%
 IOWeight=6000
+#This should point to script or executable to run. The Example here is Palworld.
 ExecStart=/home/steam/serverdata/palworld/PalServer.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
 
-StandardOutput=append:/var/log/palworld.log
-StandardError=append:/var/log/palworld.log
+StandardOutput=append:/var/log/steamcmd_server.log
+StandardError=append:/var/log/steamcmd_server.log
 
 [Install]
 WantedBy=multi-user.target
