@@ -11,8 +11,8 @@ MemoryMax=22G
 CPUWeight=9000
 CPUQuota=95%
 IOWeight=6000
-#This should point to script or executable to run. The Example here is Palworld.
-ExecStart=/home/steam/serverdata/palworld/PalServer.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
+#This should point to script or executable to run. The Example here is Executable.sh
+ExecStart=/home/steam/serverdata/palworld/Executable.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
 
 StandardOutput=append:/var/log/steamcmd_server.log
 StandardError=append:/var/log/steamcmd_server.log
