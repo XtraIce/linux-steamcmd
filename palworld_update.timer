@@ -1,16 +1,14 @@
 [Unit]
-Description= Daily Service to Backup PalWorld Server and Update it AT 6am
+Description=Daily Service to Backup PalWorld Server and Update it at 4:00am
 After=network.target
-RefuseManualStart=no # Allow manual starts
-RefuseManualStop=no  # Allow manual stops
 
 [Timer]
 #Execute Job if it missed a run due to machine being off
 Persistent=true
 #Run 30 seconds after boot for the first time
 OnBootSec=30
-#Run Everyday at 8 hr intervals 12:00am / 8:00am / 4:00pm  
-OnCalendar=*-*-* 0/8:00:00
+#Run every day at 4:00am
+OnCalendar=*-*-* 04:00:00
 #File describing job to execute
 Unit=palworld_update.service
 
