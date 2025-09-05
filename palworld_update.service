@@ -1,17 +1,18 @@
 [Unit]
-Description= Daily Service to Backup PalWorld Server and Update it
-Before=palworld.service
-After=network.target
-# EXECPATH variable should be replaced by absolute path
+Description=Backup, Update, and Restart PalWorld Server
+Wants=palworld.service
+After=palworld.service network.target
+# This service will stop palworld.service, run update, then restart palworld.service
 [Service]
-#User=steam
 Type=oneshot
-ExecStart=$EXECPATH/SaveAndUpdate.sh
-
-Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/steam;
-
+RemainAfterExit=true
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/steam
 StandardOutput=append:/var/log/palworld.log
 StandardError=append:/var/log/palworld.log
+ExecStart=/usr/bin/systemctl stop palworld.service
+ExecStart=/home/steam/serverdata/repos/linux-steamcmd/SaveAndUpdate.sh
+ExecStartPost=/usr/bin/systemctl start palworld.service
+ExecStartPost=/bin/bash -c 'echo "palworld_update.service completed at $(date)" >> /var/log/palworld.log'
 
 [Install]
 WantedBy=multi-user.target
