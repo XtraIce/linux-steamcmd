@@ -11,7 +11,7 @@ MemoryMax=22G
 CPUWeight=9000
 CPUQuota=95%
 IOWeight=6000
-ExecStart=$EXECPATH/PalServer.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
+ExecStart=/home/steam/serverdata/palworld/PalServer.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
 
 StandardOutput=append:/var/log/palworld.log
 StandardError=append:/var/log/palworld.log
