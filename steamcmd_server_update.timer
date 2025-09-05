@@ -1,5 +1,5 @@
 [Unit]
-Description=Daily Service to Backup PalWorld Server and Update it at 4:00am
+Description=Daily Service to Backup SteamCmd Game Server and Update it at 4:00am
 After=network.target
 
 [Timer]
@@ -10,7 +10,7 @@ OnBootSec=30
 #Run every day at 4:00am
 OnCalendar=*-*-* 04:00:00
 #File describing job to execute
-Unit=palworld_update.service
+Unit=steamcmd_server_update.service
 
 [Install]
 WantedBy=timers.target
