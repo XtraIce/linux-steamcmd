@@ -12,7 +12,7 @@ CPUWeight=9000
 CPUQuota=95%
 IOWeight=6000
 #This should point to script or executable to run. The Example here is Executable.sh
-ExecStart=/home/steam/serverdata/palworld/Executable.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
+ExecStart=/home/steam/serverdata/Executable.sh -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
 
 StandardOutput=append:/var/log/steamcmd_server.log
 StandardError=append:/var/log/steamcmd_server.log
