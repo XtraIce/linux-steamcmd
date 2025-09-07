@@ -6,4 +6,4 @@ SHELL=/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # minute hour day-of-month month day-of-week user command
-0 4 * * * root /usr/bin/systemctl restart steamcmd_server_update.service
+0 4 * * * root /usr/bin/systemctl start steamcmd_server_update.service
