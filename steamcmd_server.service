@@ -14,8 +14,8 @@ IOWeight=6000
 #This should point to script or executable to run. The Example here is Executable.sh
 ExecStart=$EXECPATH -useperfthreads -NoAsyncLoadingThread -UseMultithreadForDS
 
-StandardOutput=append:/var/log/steamcmd_server.service.log
-StandardError=append:/var/log/steamcmd_server.service.log
+StandardOutput=append:/var/log/steamcmd_server.log
+StandardError=append:/var/log/steamcmd_server.log
 
 [Install]
 WantedBy=multi-user.target
