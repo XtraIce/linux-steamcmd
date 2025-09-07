@@ -5,7 +5,6 @@ After=steamcmd_server.service network.target
 # This service will stop steamcmd_server.service, run update, then restart steamcmd_server.service
 [Service]
 Type=oneshot
-RemainAfterExit=true
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/steam
 StandardOutput=append:/var/log/steamcmd_server_update.log
 StandardError=append:/var/log/steamcmd_server_update.log
