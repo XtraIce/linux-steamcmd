@@ -1,5 +1,5 @@
 [Unit]
-Description=palworld service to keep server running
+Description=Steamcmd service to keep server running
 After=steamcmd_server_update.service
 
 [Service]
