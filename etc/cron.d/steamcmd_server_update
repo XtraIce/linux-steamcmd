@@ -1,0 +1,9 @@
+# /etc/cron.d/steamcmd_server_update
+# Runs the systemd oneshot unit daily at 04:00 as root.
+# This replicates the systemd timer schedule (excluding the boot-time and persistence behavior).
+
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# minute hour day-of-month month day-of-week user command
+0 4 * * * root /usr/bin/systemctl restart steamcmd_server_update.service
