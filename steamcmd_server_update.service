@@ -6,12 +6,14 @@ After=steamcmd_server.service network.target
 [Service]
 Type=oneshot
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/steam
-StandardOutput=append:/var/log/steamcmd_server_update.log
-StandardError=append:/var/log/steamcmd_server_update.log
+
 ExecStart=/usr/bin/systemctl stop steamcmd_server.service
 ExecStart=$EXECPATH/SaveAndUpdate.sh
 ExecStartPost=/usr/bin/systemctl start steamcmd_server.service
 ExecStartPost=/bin/bash -c 'echo "steamcmd_server_update.service completed at $(date)" >> /var/log/steamcmd_server.log'
+
+#StandardOutput=append:/var/log/steamcmd_server_update.log
+#StandardError=append:/var/log/steamcmd_server_update.log
 
 [Install]
 WantedBy=multi-user.target
