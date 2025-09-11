@@ -10,7 +10,7 @@ Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/s
 ExecStart=/usr/bin/systemctl stop steamcmd_server.service
 ExecStart=$EXECPATH/SaveAndUpdate.sh
 ExecStartPost=/usr/bin/systemctl start steamcmd_server.service
-ExecStartPost=/bin/bash -c 'echo "steamcmd_server_update.service completed at $(date)" >> /var/log/steamcmd_server.log'
+ExecStartPost=/bin/bash -c 'echo "steamcmd_server_update.service completed at $(date)" >> /var/log/journal/steamcmd_server_update.service.log'
 
 #StandardOutput=append:/var/log/steamcmd_server_update.log
 #StandardError=append:/var/log/steamcmd_server_update.log
