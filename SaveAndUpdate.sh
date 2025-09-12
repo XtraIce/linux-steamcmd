@@ -39,6 +39,7 @@ echo "Saving game_server to Backup @: ${save_dir}.."
 mkdir -p "${save_dir}"/World "${save_dir}"/Config
 cp -r "${TARGET_WORLDSAVE}" "${save_dir}"/World
 cp -r "${TARGET_WORLD_SETTINGS}" "${save_dir}"/Config
+chown -R 777 "${save_dir}"
 #Update Server
 echo "Checking for game_server updates..."
 ret=$("$QUERY_UPDATE" "$STEAM_APP" "$SERVER_DIR")
