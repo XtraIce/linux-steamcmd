@@ -40,6 +40,33 @@ mkdir -p "${save_dir}"/World "${save_dir}"/Config
 cp -r "${TARGET_WORLDSAVE}" "${save_dir}"/World
 cp -r "${TARGET_WORLD_SETTINGS}" "${save_dir}"/Config
 chmod -R 777 "${save_dir}"
+
+# Prune old backups: keep only the 10 most recent dated directories in SAVE_LOCATION
+# Safety checks ensure we don't ever prune $HOME or /
+if [[ -n "$BACKUPS_DIR" && -d "$SAVE_LOCATION" && "$SAVE_LOCATION" != "$HOME" && "$SAVE_LOCATION" != "/" ]]; then
+  echo "Pruning old backups in $SAVE_LOCATION (keeping the 10 most recent)..."
+  # Collect backup directories that match the timestamp naming pattern used above
+  # Sort by modification time (newest first), then delete everything beyond the first 10
+  mapfile -d '' -t backups < <(
+    find "$SAVE_LOCATION" -mindepth 1 -maxdepth 1 -type d \
+      -regextype posix-extended \
+      -regex ".*/[0-9]{2}_[0-9]{2}_[0-9]{4}_[0-9]{2}:[0-9]{2}:[0-9]{2}$" \
+      -printf '%T@ %p\0' \
+    | sort -z -nr -k1,1 \
+    | cut -z -d ' ' -f2-
+  )
+  if (( ${#backups[@]} > 10 )); then
+    to_delete=( "${backups[@]:10}" )
+    printf 'Deleting old backup(s):\n'
+    printf '  %s\n' "${to_delete[@]}"
+    printf '%s\0' "${to_delete[@]}" | xargs -0r rm -rf --
+  else
+    echo "No old backups to prune (found ${#backups[@]})."
+  fi
+else
+  echo "Skipping prune: SAVE_LOCATION is not a safe directory ($SAVE_LOCATION) or BACKUPS_DIR is unset."
+fi
+
 #Update Server
 echo "Checking for game_server updates..."
 ret=$("$QUERY_UPDATE" "$STEAM_APP" "$SERVER_DIR")
