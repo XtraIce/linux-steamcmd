@@ -28,11 +28,11 @@ if $(pgrep -f $TARGET_APP >/dev/null) ; then
 	else
 		echo "$RCON Failed. Shutting down now."
 	fi
-	#Shutdown existing server using systemctl and wait for it to stop
-	echo "Shutting Down Server via systemctl..."
-	systemctl stop steamcmd_server
-	echo "Waiting for steamcmd_server service to stop..."
-	while systemctl is-active --quiet steamcmd_server; do
+	#Shutdown existing server using pkill and wait for it to stop
+	echo "Shutting Down Server via pkill $TARGET_APP"
+	pkill -15 -f $TARGET_APP
+	echo "Waiting for $TARGET_APP to stop..."
+	while $(pgrep -f $TARGET_APP >/dev/null) || $(pgrep -f $GAME_EXECUTABLE >/dev/null); do
 		sleep 1
 	done
 fi
@@ -83,3 +83,4 @@ else
 	echo "Game version is latest"
 fi
 echo "Updates Done! Server may now restart."
+
