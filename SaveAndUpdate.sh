@@ -13,7 +13,7 @@ ARRCON="/usr/bin/ARRCON"
 
 
 #Check if Server is running
-if $(pgrep $TARGET_APP >/dev/null) ; then
+if $(pgrep -f $TARGET_APP >/dev/null) ; then
 	#Broadcast that the server will be going down soon.
 	echo "Broadcast Server_will_be_shutdown_in_30_mins" | $ARRCON -S game_server && echo "Broadcast for_scheduled_maintanence_-Red" | ARRCON -S game_server
 	if [ $? -eq 0 ]; then
