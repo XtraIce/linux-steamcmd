@@ -28,9 +28,13 @@ if $(pgrep $TARGET_APP >/dev/null) ; then
 	else
 		echo "$RCON Failed. Shutting down now."
 	fi
-	#Shutdown existing server
-	echo "Shutting Down Server..."
-	pkill -15 $TARGET_APP #sigterm
+	#Shutdown existing server using systemctl and wait for it to stop
+	echo "Shutting Down Server via systemctl..."
+	systemctl stop steamcmd_server
+	echo "Waiting for steamcmd_server service to stop..."
+	while systemctl is-active --quiet steamcmd_server; do
+		sleep 1
+	done
 fi
 #Save existing world
 dt=$(date '+%m_%d_%Y_%H:%M:%S');
