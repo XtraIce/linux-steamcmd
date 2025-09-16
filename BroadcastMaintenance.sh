@@ -7,7 +7,7 @@ if $BROADCAST_MAINTENANCE; then
     # Broadcast sequence
     if $(pgrep -f $TARGET_APP >/dev/null) ; then
         echo "${RCON_BROADCAST_CMD} Server_will_be_shutdown_in_30_mins" | $ARRCON -S game_server && \
-        echo "${RCON_BROADCAST_CMD} for_scheduled_maintanence_-Red" | $ARRCON -S game_server
+        echo "${RCON_BROADCAST_CMD} for_scheduled_maintanence_" | $ARRCON -S game_server
         if [ $? -eq 0 ]; then
             sleep 20m
             echo "${RCON_BROADCAST_CMD} Server_will_be_shutdown_in_10_mins" | $ARRCON -S game_server && \
