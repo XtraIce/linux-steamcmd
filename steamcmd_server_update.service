@@ -7,8 +7,7 @@ After=steamcmd_server.service network.target
 Type=oneshot
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/steam
 
-ExecStart=/usr/bin/systemctl stop steamcmd_server.service
-ExecStart=$EXECPATH/SaveAndUpdate.sh
+ExecStart=/bin/bash -c '$EXECPATH/BroadcastMaintenance.sh; /usr/bin/systemctl stop steamcmd_server.service; $EXECPATH/SaveAndUpdate.sh'
 ExecStartPost=/usr/bin/systemctl start steamcmd_server.service
 ExecStartPost=/bin/bash -c 'echo "steamcmd_server_update.service completed at $(date)" >> /var/log/journal/steamcmd_server_update.service.log'
 
