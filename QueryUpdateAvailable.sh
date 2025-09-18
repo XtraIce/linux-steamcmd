@@ -6,7 +6,7 @@
 
 #@ECHO OFF
 CURLCMD=/usr/bin/curl
-STEAMCMD=/home/steam/steamcmd/steamcmd.sh
+STEAMCMD=${DATA_DIR}/steamcmd/steamcmd.sh
 RETVALUE=-1
 exit=0
 

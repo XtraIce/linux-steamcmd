@@ -1,5 +1,5 @@
 #!/bin/bash
-DATA_DIR=$/home/steam/serverdata
+DATA_DIR=${DATA_DIR:-"/home/steam/serverdata"}
 SAVE_LOCATION=${HOME}/$BACKUPS_DIR
 SAVE_TARGET_NAME=$SAVE_TARGET_NAME
 APP_INFO=${HOME}/steam/appinfo
