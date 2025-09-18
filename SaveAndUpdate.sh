@@ -37,13 +37,20 @@ if $(pgrep -f $TARGET_APP >/dev/null) ; then
 	done
 fi
 #Save existing world
-dt=$(date '+%m_%d_%Y_%H:%M:%S');
-save_dir=${SAVE_LOCATION}/${dt}
+dt=$(date '+%m_%d_%Y_%H:%M:%S')
+save_dir="${SAVE_LOCATION}/${dt}"
 echo "Saving game_server to Backup @: ${save_dir}.."
-mkdir -p "${save_dir}"/World "${save_dir}"/Config
-cp -r "${TARGET_WORLDSAVE}" "${save_dir}"/World
-cp -r "${TARGET_WORLD_SETTINGS}" "${save_dir}"/Config
+mkdir -p "${save_dir}/World" "${save_dir}/Config"
+cp -r "${TARGET_WORLDSAVE}" "${save_dir}/World"
+cp -r "${TARGET_WORLD_SETTINGS}" "${save_dir}/Config"
 chmod -R 777 "${save_dir}"
+
+# Compress the backup directory into a gzipped tar file
+archive_file="${SAVE_LOCATION}/backup_${dt}.tar.gz"
+tar -czf "${archive_file}" -C "${SAVE_LOCATION}" "${dt}"
+echo "Backup compressed to: ${archive_file}"
+# Remove the original backup directory
+rm -rf "${save_dir}"
 
 # Prune old backups: keep only the 10 most recent dated directories in SAVE_LOCATION
 # Safety checks ensure we don't ever prune $HOME or /
