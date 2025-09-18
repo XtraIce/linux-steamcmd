@@ -59,12 +59,12 @@ if [[ -n "$BACKUPS_DIR" && -d "$SAVE_LOCATION" && "$SAVE_LOCATION" != "$HOME" &&
   # Collect backup directories that match the timestamp naming pattern used above
   # Sort by modification time (newest first), then delete everything beyond the first 10
   mapfile -d '' -t backups < <(
-    find "$SAVE_LOCATION" -mindepth 1 -maxdepth 1 -type d \
-      -regextype posix-extended \
-      -regex ".*/[0-9]{2}_[0-9]{2}_[0-9]{4}_[0-9]{2}:[0-9]{2}:[0-9]{2}$" \
-      -printf '%T@ %p\0' \
-    | sort -z -nr -k1,1 \
-    | cut -z -d ' ' -f2-
+	find "$SAVE_LOCATION" -mindepth 1 -maxdepth 1 \( -type d -o -type f -name "*.tar.gz" \) \
+	  -regextype posix-extended \
+	  \( -regex ".*/[0-9]{2}_[0-9]{2}_[0-9]{4}_[0-9]{2}:[0-9]{2}:[0-9]{2}$" -o -regex ".*/backup_[0-9]{2}_[0-9]{2}_[0-9]{4}_[0-9]{2}:[0-9]{2}:[0-9]{2}\.tar\.gz$" \) \
+	  -printf '%T@ %p\0' \
+	| sort -z -nr -k1,1 \
+	| cut -z -d ' ' -f2-
   )
   if (( ${#backups[@]} > 10 )); then
     to_delete=( "${backups[@]:10}" )
