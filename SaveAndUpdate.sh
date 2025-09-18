@@ -46,7 +46,7 @@ cp -r "${TARGET_WORLD_SETTINGS}" "${save_dir}/Config"
 chmod -R 777 "${save_dir}"
 
 # Compress the backup directory into a gzipped tar file
-archive_file="${SAVE_LOCATION}/backup_${dt}.tar.gz"
+archive_file="${SAVE_LOCATION}/${dt}.tar.gz"
 tar -czf "${archive_file}" -C "${SAVE_LOCATION}" "${dt}"
 echo "Backup compressed to: ${archive_file}"
 # Remove the original backup directory
