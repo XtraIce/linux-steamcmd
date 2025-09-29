@@ -34,6 +34,29 @@ else
 fi
 
 if [[ !$exit ]]; then
+	if [[ ! -f "${STEAMCMD}" ]]; then
+		echo "ERROR: steamcmd not found at ${STEAMCMD}"
+		exit=1
+	else
+		STEAMCMD_VERSION=$(${STEAMCMD} +login anonymous +quit 2>&1 | grep -i "Steam Console Client" | awk '{print $NF}')
+		LATEST_STEAMCMD_VERSION=$(${CURLCMD} -s https://api.steamcmd.net/v1/version | grep -oP '"version":\s*"\K[^"]+')
+		if [[ "$STEAMCMD_VERSION" != "$LATEST_STEAMCMD_VERSION" && "$LATEST_STEAMCMD_VERSION" != "" ]]; then
+			echo "steamcmd is outdated (installed: $STEAMCMD_VERSION, latest: $LATEST_STEAMCMD_VERSION)"
+			NEEDS_STEAMCMD_UPDATE=true
+			# Update steamcmd
+			echo "Updating steamcmd..."
+			${STEAMCMD} +login anonymous +quit
+			# Optionally re-check version after update
+			STEAMCMD_VERSION_UPDATED=$(${STEAMCMD} +login anonymous +quit 2>&1 | grep -i "Steam Console Client" | awk '{print $NF}')
+			echo "steamcmd updated to version: $STEAMCMD_VERSION_UPDATED"
+		else
+			echo "steamcmd is up-to-date (version: $STEAMCMD_VERSION)"
+			NEEDS_STEAMCMD_UPDATE=false
+		fi
+	fi
+fi
+
+if [[ !$exit ]]; then
 	if command -v ${STEAMCMD} &> /dev/null; then
 		APPINFO_DIR=/home/steam/steam/appinfo
 		APPINFO_FILE="${APPINFO_DIR}/${APPID}"
