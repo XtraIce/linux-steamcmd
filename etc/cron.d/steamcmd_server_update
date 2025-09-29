@@ -17,4 +17,4 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 #  │ │ │ │ │
 #  * * * * *
 # "0 4 * * *" runs the update/backup daily at 4:00 AM.
-[REPLACE_WITH_CRONX] root /usr/bin/systemctl start steamcmd_server_update.service
+[REPLACE_WITH_CRONX] root /usr/bin/systemctl restart steamcmd_server_update.service
